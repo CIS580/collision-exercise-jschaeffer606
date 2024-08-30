@@ -13,6 +13,7 @@ namespace CollisionExample
         private SlimeGhostSprite slimeGhost;
         private SpriteFont spriteFont;
         private int coinsLeft;
+        private Texture2D ball;
 
         /// <summary>
         /// A game demonstrating collision detection
@@ -58,6 +59,8 @@ namespace CollisionExample
             foreach (var coin in coins) coin.LoadContent(Content);
             slimeGhost.LoadContent(Content);
             spriteFont = Content.Load<SpriteFont>("arial");
+            ball = Content.Load<Texture2D>("ball");
+           
         }
 
         /// <summary>
@@ -72,6 +75,18 @@ namespace CollisionExample
             // TODO: Add your update logic here
             slimeGhost.Update(gameTime);
 
+            slimeGhost.Color = Color.White;
+            //detect and process collisions
+            foreach (var coin in coins)
+            {
+                if(coin.Bounds.CollidesWith(slimeGhost.Bounds))
+                {
+                    slimeGhost.Color = Color.Red;
+                }
+                
+
+            }
+
             base.Update(gameTime);
         }
 
@@ -85,7 +100,14 @@ namespace CollisionExample
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
-            foreach (var coin in coins) coin.Draw(gameTime, spriteBatch);
+            foreach (var coin in coins)
+            {
+                coin.Draw(gameTime, spriteBatch);
+                
+                
+            }
+            
+          
             slimeGhost.Draw(gameTime, spriteBatch);
             spriteBatch.DrawString(spriteFont, $"Coins left: {coinsLeft}", new Vector2(2,2), Color.Gold);
             spriteBatch.End();
@@ -93,4 +115,4 @@ namespace CollisionExample
             base.Draw(gameTime);
         }
     }
-}
+}   

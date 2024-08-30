@@ -24,6 +24,8 @@ namespace CollisionExample
 
         private BoundingCircle bounds;
 
+        public bool Collected { get; set; } = false;
+
         /// <summary>
         /// Bounding Volume of the sprice
         /// </summary>
@@ -56,6 +58,7 @@ namespace CollisionExample
         /// <param name="spriteBatch">The spritebatch to render with</param>
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            if (Collected) return;
             animationTimer += gameTime.ElapsedGameTime.TotalSeconds;
 
             if(animationTimer > ANIMATION_SPEED)

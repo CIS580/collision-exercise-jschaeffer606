@@ -79,9 +79,11 @@ namespace CollisionExample
             //detect and process collisions
             foreach (var coin in coins)
             {
-                if(coin.Bounds.CollidesWith(slimeGhost.Bounds))
+                if(!coin.Collected & coin.Bounds.CollidesWith(slimeGhost.Bounds))
                 {
                     slimeGhost.Color = Color.Red;
+                    coin.Collected = true;
+                    coinsLeft--;
                 }
                 
 
